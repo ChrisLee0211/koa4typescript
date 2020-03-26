@@ -1,5 +1,4 @@
 import * as Koa from 'koa'; // koa框架
-import * as Router from 'koa-router'; // koa-router：处理路由
 import getConfig from './config';
 import * as http from 'http';
 import * as socketIO from 'socket.io'
@@ -7,7 +6,7 @@ import globalLogger from './utils/logger/globalLog'
 import log from './middleware/log'
 
 //路由分发
-import router from './router/index';
+import routerMount from './router/index';
 
 //中间件
 import cors from './middleware/cors';
@@ -22,8 +21,7 @@ const io = socketIO(server)
 app.use(cors)
 app.use(log())
 app.use(bodyParser())
-.use(router.routes())
-.use(router.allowedMethods())
+routerMount(app)
 
 globalLogger()
 

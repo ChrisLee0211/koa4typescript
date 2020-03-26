@@ -1,7 +1,15 @@
-import example from '../service/example'
-import * as Router from 'koa-router';
-const router = new Router();
+import * as fs from 'fs';
+import * as koa from 'koa';
+import * as Route from 'koa-router'
 
-router.get('*',example)
+const routerMount = (app:koa) => {
+    fs.readdirSync(__dirname).forEach((file:string) => {
+        if(file === 'index.js'||file === 'index.js.map'){
+            return
+        };
+        const router:Route = require(`./${file}/index.js`);
+        app.use(router.routes()).use(router.allowedMethods());
+    })
+};
 
-export default router
+export default routerMount
