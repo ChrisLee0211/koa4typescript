@@ -1,4 +1,4 @@
-import example from '../../service/example'
+import example from '../../controllers/example'
 import * as Router from 'koa-router';
 const router = new Router();
 

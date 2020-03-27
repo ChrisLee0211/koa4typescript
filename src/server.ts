@@ -4,7 +4,7 @@ import * as http from 'http';
 import * as socketIO from 'socket.io'
 import globalLogger from './utils/logger/globalLog'
 import log from './middleware/log'
-
+import connetToMongodb from './utils/mongo/mongoConnetion';
 //路由分发
 import routerMount from './router/index';
 
@@ -17,6 +17,8 @@ const env = process.env.NODE_ENV
 const PORT:number|string = getConfig(env).basePort;
 const server = http.createServer(app.callback());
 const io = socketIO(server)
+connetToMongodb()
+
 
 app.use(cors)
 app.use(log())
