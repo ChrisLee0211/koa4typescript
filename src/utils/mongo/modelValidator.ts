@@ -9,3 +9,16 @@ export const checkEmpty:<T>(model:mongoose.Schema<T>,param:string)=>void = (mode
         }
     },`${param}字段不能为空`)
 }
+
+export const formatFilter = (filterField:any) => {
+    let result = {} as any;
+    if(filterField instanceof Array){
+        throw `can not recieve a array`
+    }
+    for(let key in filterField){
+        if(filterField[key]!==''&&filterField[key]!==null&&filterField[key]!==undefined){
+            result[key] = filterField[key]
+        }
+    };
+    return result
+}
