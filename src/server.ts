@@ -1,7 +1,7 @@
 import * as Koa from 'koa'; // koa框架
 import getConfig from './config';
 import * as http from 'http';
-import * as socketIO from 'socket.io'
+import {Server} from 'socket.io'
 import globalLogger from './utils/logger/globalLog'
 import log from './middleware/log'
 import connetToMongodb from './utils/mongo/mongoConnetion';
@@ -16,7 +16,7 @@ const app = new Koa(); // 新建一个koa应用
 const env = process.env.NODE_ENV
 const PORT:number|string = getConfig(env).basePort;
 const server = http.createServer(app.callback());
-const io = socketIO(server)
+const io = new Server(server)
 connetToMongodb()
 
 

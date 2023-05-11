@@ -17,12 +17,10 @@ const clientCreate = (config:mongoConfig,callback_:Function) => {
         mongoAddress = `mongodb://${config.host}:${config.port}/${config.db}`
     }
     try {
-        mongoose.set('bufferCommands', false)
         mongoose.connect(mongoAddress, { 
-          useNewUrlParser: true,
-          bufferMaxEntries: 0,   
-          autoReconnect: true,  
-          poolSize: 5          
+          bufferCommands: false,   
+          maxPoolSize: 10,
+          minPoolSize:5,        
         })
         
         const db:mongoose.Connection = mongoose.connection
